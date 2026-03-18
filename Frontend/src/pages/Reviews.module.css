@@ -1,0 +1,120 @@
+/* src/pages/Reviews.module.css */
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+/* Write Review form */
+.formCard {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  border: 1px solid rgba(139,94,60,0.08);
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.formTitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--charcoal);
+  margin-bottom: 1.25rem;
+}
+
+.group { margin-bottom: 1.25rem; }
+
+.label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 1.85rem;
+  cursor: pointer;
+  color: #e5e7eb;
+  transition: all 0.15s;
+  line-height: 1;
+  padding: 0;
+}
+
+.star:hover,
+.starActive {
+  color: #F59E0B;
+  transform: scale(1.1);
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid rgba(139,94,60,0.2);
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--charcoal);
+  resize: vertical;
+  min-height: 120px;
+  outline: none;
+  transition: all 0.2s;
+  line-height: 1.6;
+}
+
+.textarea:focus {
+  border-color: var(--brown);
+  box-shadow: 0 0 0 3px rgba(139,94,60,0.1);
+}
+
+.errorMsg {
+  font-size: 0.8rem;
+  color: #dc2626;
+  margin-bottom: 0.75rem;
+}
+
+.successMsg {
+  font-size: 0.85rem;
+  color: #16a34a;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.submitBtn {
+  background: var(--brown);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-md);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitBtn:hover {
+  background: var(--brown-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139,94,60,0.25);
+}
+
+/* List */
+.listSection {}
+
+.listTitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--charcoal);
+  margin-bottom: 1.25rem;
+}

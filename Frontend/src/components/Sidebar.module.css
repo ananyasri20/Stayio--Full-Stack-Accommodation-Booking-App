@@ -1,0 +1,88 @@
+/* src/components/Sidebar.module.css */
+
+.sidebar {
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid rgba(139, 94, 60, 0.1);
+  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 68px);
+}
+
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--brown);
+  padding: 0 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo span { color: var(--olive); }
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.875rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+
+.item:hover {
+  background: rgba(139, 94, 60, 0.06);
+  color: var(--charcoal);
+}
+
+.item.active {
+  background: rgba(139, 94, 60, 0.1);
+  color: var(--brown);
+  font-weight: 500;
+}
+
+.icon {
+  font-size: 1.05rem;
+  width: 22px;
+  text-align: center;
+}
+
+.logoutWrap { margin-top: auto; }
+
+.logout { color: #dc2626 !important; }
+.logout:hover { background: rgba(220, 38, 38, 0.06) !important; }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: unset;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(139, 94, 60, 0.1);
+    gap: 0.25rem;
+  }
+  .logo { display: none; }
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .logoutWrap { margin-top: 0; }
+}
