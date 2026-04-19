@@ -1,155 +1,59 @@
-// src/pages/Dashboard.jsx
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Sidebar from '../components/Sidebar'
-import BookingCard from '../components/BookingCard'
-import HotelCard from '../components/HotelCard'
-import ReviewCard from '../components/ReviewCard'
-import { bookings, hotels, testimonials } from '../data/hotels'
-import styles from './Dashboard.module.css'
+import StatCard from '../components/StatCard';
+import { recentActivity } from '../data/dummyData';
+import styles from './Dashboard.module.css';
 
 const stats = [
-  { icon: '🏨', value: '12', label: 'Total Bookings',  change: '↑ 3 this month', up: true  },
-  { icon: '❤️', value: '8',  label: 'Saved Hotels',    change: null               },
-  { icon: '⭐', value: '6',  label: 'Reviews Written', change: null               },
-  { icon: '💰', value: '$2.4k', label: 'Total Spent',  change: '↓ 12% vs last year', up: false },
-]
-
-const savedHotels = [hotels[1], hotels[4], hotels[6]]
-
-const fadeUp = {
-  initial:   { opacity: 0, y: 20 },
-  animate:   { opacity: 1, y: 0 },
-  exit:      { opacity: 0, y: -12 },
-  transition:{ duration: 0.35 },
-}
+  { icon: '🗓', label: 'Total Bookings',  value: '12', accent: ''      },
+  { icon: '✦',  label: 'Total Reviews',   value: '8',  accent: 'green' },
+  { icon: '🏨', label: 'Upcoming Stays',  value: '3',  accent: 'amber' },
+  { icon: '🔖', label: 'Saved Hotels',    value: '21', accent: ''      },
+];
 
 export default function Dashboard() {
-  const [section, setSection] = useState('overview')
-  const [profileForm, setProfileForm] = useState({
-    name: 'Alex Johnson',
-    email: 'alex.johnson@email.com',
-    phone: '+1 (555) 234-5678',
-  })
-  const [saved, setSaved] = useState(false)
+  const hour = new Date().getHours();
+  const greeting =
+    hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <div className={styles.layout}>
-      <Sidebar activeSection={section} onSelect={setSection} />
+    <div className={styles.page}>
+      {/* Hero welcome */}
+      <div className={styles.hero}>
+        <div className={styles.heroText}>
+          <p className={styles.greeting}>{greeting} ✦</p>
+          <h1 className={styles.welcome}>Welcome back, <span>Ananya</span></h1>
+          <p className={styles.sub}>Here's a snapshot of your travel journey.</p>
+        </div>
+        <div className={styles.heroBadge}>
+          <span className={styles.badgeIcon}>👑</span>
+          <div>
+            <p className={styles.badgeLabel}>Premium Member</p>
+            <p className={styles.badgeSub}>Since January 2024</p>
+          </div>
+        </div>
+      </div>
 
-      <main className={styles.main}>
-        <AnimatePresence mode="wait">
+      {/* Stats grid */}
+      <div className={styles.statsGrid}>
+        {stats.map((s) => (
+          <StatCard key={s.label} {...s} />
+        ))}
+      </div>
 
-          {/* ── Overview ── */}
-          {section === 'overview' && (
-            <motion.div key="overview" {...fadeUp}>
-              <div className={styles.header}>
-                <h2>Welcome back, Alex! 👋</h2>
-                <p>Here's a summary of your travel activity</p>
+      {/* Recent Activity */}
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Recent Activity</h2>
+        <div className={styles.activityList}>
+          {recentActivity.map((item) => (
+            <div key={item.id} className={styles.activityItem}>
+              <div className={styles.activityIcon}>{item.icon}</div>
+              <div className={styles.activityBody}>
+                <p className={styles.activityText}>{item.text}</p>
+                <p className={styles.activityTime}>{item.time}</p>
               </div>
-
-              <div className={styles.statsGrid}>
-                {stats.map((s) => (
-                  <div key={s.label} className={styles.statCard}>
-                    <div className={styles.statIcon}>{s.icon}</div>
-                    <div className={styles.statValue}>{s.value}</div>
-                    <div className={styles.statLabel}>{s.label}</div>
-                    {s.change && (
-                      <div className={`${styles.statChange} ${s.up ? styles.up : styles.down}`}>
-                        {s.change}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.sectionTitle}>Recent Bookings</div>
-              <div className={styles.list}>
-                {bookings.slice(0, 3).map((b) => <BookingCard key={b.id} booking={b} />)}
-              </div>
-            </motion.div>
-          )}
-
-          {/* ── My Bookings ── */}
-          {section === 'bookings' && (
-            <motion.div key="bookings" {...fadeUp}>
-              <div className={styles.header}>
-                <h2>My Bookings</h2>
-                <p>All your upcoming and past stays</p>
-              </div>
-              <div className={styles.list}>
-                {bookings.map((b) => <BookingCard key={b.id} booking={b} />)}
-              </div>
-            </motion.div>
-          )}
-
-          {/* ── Saved Hotels ── */}
-          {section === 'saved' && (
-            <motion.div key="saved" {...fadeUp}>
-              <div className={styles.header}>
-                <h2>Saved Hotels</h2>
-                <p>Hotels you've added to your wishlist</p>
-              </div>
-              <div className="grid-3">
-                {savedHotels.map((h) => <HotelCard key={h.id} hotel={h} />)}
-              </div>
-            </motion.div>
-          )}
-
-          {/* ── Reviews ── */}
-          {section === 'reviews' && (
-            <motion.div key="reviews" {...fadeUp}>
-              <div className={styles.header}>
-                <h2>My Reviews</h2>
-                <p>Reviews you've written for past stays</p>
-              </div>
-              {testimonials.slice(0, 3).map((t) => (
-                <ReviewCard key={t.name} review={t} />
-              ))}
-            </motion.div>
-          )}
-
-          {/* ── Profile ── */}
-          {section === 'profile' && (
-            <motion.div key="profile" {...fadeUp}>
-              <div className={styles.header}>
-                <h2>Profile Settings</h2>
-                <p>Manage your account information</p>
-              </div>
-              <div className={styles.profileCard}>
-                <div className={styles.profileTop}>
-                  <div className={styles.profileAvatar}>AJ</div>
-                  <div>
-                    <div className={styles.profileName}>{profileForm.name}</div>
-                    <div className={styles.profileEmail}>{profileForm.email}</div>
-                  </div>
-                </div>
-                {['name', 'email', 'phone'].map((key) => (
-                  <div className="form-group" key={key}>
-                    <label className="form-label">
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
-                    </label>
-                    <input
-                      className="form-input"
-                      value={profileForm[key]}
-                      onChange={(e) =>
-                        setProfileForm({ ...profileForm, [key]: e.target.value })
-                      }
-                    />
-                  </div>
-                ))}
-                <button
-                  className={styles.saveBtn}
-                  onClick={() => setSaved(true)}
-                >
-                  {saved ? '✅ Saved!' : 'Save Changes'}
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-        </AnimatePresence>
-      </main>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-  )
+  );
 }

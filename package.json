@@ -3,10 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@react-google-maps/api": "^2.20.8",
+    "axios": "^1.13.6",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "framer-motion": "^11.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.3.1",
+    "motion": "^12.38.0",
+    "razorpay": "^2.9.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
-    "framer-motion": "^11.0.0"
+    "react-router-dom": "^6.22.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.0",

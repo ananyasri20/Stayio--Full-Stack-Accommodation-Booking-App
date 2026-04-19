@@ -29,6 +29,7 @@ export default function Navbar() {
         <Link to="/listings"  className={`${styles.link} ${isActive('/listings') ? styles.active : ''}`}>Listings</Link>
         <Link to="/reviews"   className={`${styles.link} ${isActive('/reviews')  ? styles.active : ''}`}>Reviews</Link>
         <Link to="/dashboard" className={`${styles.link} ${isActive('/dashboard')? styles.active : ''}`}>Dashboard</Link>
+        <Link to="/bookings"  className={`${styles.link} ${isActive('/bookings') ? styles.active : ''}`}>My Bookings</Link>
       </div>
 
       {/* Auth buttons */}
@@ -62,3 +63,4 @@ export default function Navbar() {
     </nav>
   )
 }
+

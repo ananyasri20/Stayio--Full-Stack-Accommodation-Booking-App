@@ -1,0 +1,239 @@
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 480px;
+}
+
+.sideGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+
+.cell {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #ece9e2;
+}
+
+.main {
+  border-radius: 20px 0 0 20px;
+}
+
+.sideGrid .cell:first-child {
+  border-radius: 0 20px 0 0;
+}
+.sideGrid .cell:last-child {
+  border-radius: 0 0 20px 0;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cell:hover .img {
+  transform: scale(1.06);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+}
+
+.cell:hover .overlay {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.moreBadge {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.showAllBtn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: white;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transition: all 0.2s ease;
+  z-index: 5;
+}
+
+.showAllBtn:hover {
+  background: #1a1a1a;
+  color: white;
+}
+
+/* Modal */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalContent {
+  background: #111;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 860px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.closeBtn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.modalImg {
+  width: 100%;
+  max-height: 540px;
+  object-fit: cover;
+  display: block;
+}
+
+.modalNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+}
+
+.navBtn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  line-height: 1;
+}
+
+.navBtn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.modalCounter {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  min-width: 60px;
+  text-align: center;
+}
+
+.modalThumbs {
+  display: flex;
+  gap: 6px;
+  padding: 0 16px 16px;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.thumb {
+  width: 72px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+}
+
+.thumb:hover {
+  opacity: 0.85;
+}
+
+.thumbActive {
+  opacity: 1;
+  border-color: #c9a96e;
+  transform: scale(1.05);
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .main {
+    height: 280px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .sideGrid {
+    height: 200px;
+  }
+
+  .sideGrid .cell:first-child {
+    border-radius: 0;
+  }
+  .sideGrid .cell:last-child {
+    border-radius: 0 0 16px 16px;
+  }
+}

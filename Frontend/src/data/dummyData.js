@@ -1,0 +1,80 @@
+export const bookings = [
+  {
+    id: 1,
+    hotel: "The Grand Meridian",
+    location: "Paris, France",
+    status: "confirmed",
+    price: "₹18,500",
+    date: "Apr 12 – Apr 16, 2025",
+    nights: 4,
+    image: "🏨",
+  },
+  {
+    id: 2,
+    hotel: "Azure Sands Resort",
+    location: "Maldives",
+    status: "confirmed",
+    price: "₹42,000",
+    date: "May 3 – May 8, 2025",
+    nights: 5,
+    image: "🌊",
+  },
+  {
+    id: 3,
+    hotel: "Mountain Crest Inn",
+    location: "Manali, India",
+    status: "pending",
+    price: "₹6,200",
+    date: "Jun 20 – Jun 23, 2025",
+    nights: 3,
+    image: "🏔️",
+  },
+  {
+    id: 4,
+    hotel: "City Lights Suites",
+    location: "Mumbai, India",
+    status: "confirmed",
+    price: "₹9,800",
+    date: "Jul 5 – Jul 7, 2025",
+    nights: 2,
+    image: "🌆",
+  },
+];
+
+export const reviews = [
+  {
+    id: 1,
+    name: "Riya Sharma",
+    hotel: "The Grand Meridian",
+    rating: 5,
+    date: "March 2025",
+    text: "Absolutely breathtaking experience. The service was impeccable and the rooms were pristine. Will definitely return!",
+    avatar: "RS",
+  },
+  {
+    id: 2,
+    name: "Kabir Mehta",
+    hotel: "Azure Sands Resort",
+    rating: 4,
+    date: "February 2025",
+    text: "Beautiful location with stunning ocean views. Breakfast was excellent. Slightly pricey but worth every penny.",
+    avatar: "KM",
+  },
+  {
+    id: 3,
+    name: "Pooja Iyer",
+    hotel: "Mountain Crest Inn",
+    rating: 5,
+    date: "January 2025",
+    text: "The most peaceful getaway I've ever had. The staff was warm and the mountain views from the room were unreal.",
+    avatar: "PI",
+  },
+];
+
+export const recentActivity = [
+  { id: 1, type: "booking", icon: "✅", text: "Booking confirmed at The Grand Meridian", time: "2 hours ago" },
+  { id: 2, type: "review", icon: "⭐", text: "You left a review for Azure Sands Resort", time: "Yesterday" },
+  { id: 3, type: "saved", icon: "🔖", text: "Saved Taj Falaknuma Palace to wishlist", time: "2 days ago" },
+  { id: 4, type: "booking", icon: "🕐", text: "Booking pending for Mountain Crest Inn", time: "3 days ago" },
+  { id: 5, type: "offer", icon: "🎁", text: "You have a 15% discount on your next stay!", time: "1 week ago" },
+];

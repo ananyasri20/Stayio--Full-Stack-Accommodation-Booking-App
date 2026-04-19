@@ -1,0 +1,75 @@
+/* ================================
+   Global Styles & Design Tokens
+================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg-primary: #0f0f13;
+  --bg-secondary: #16161d;
+  --bg-card: #1c1c26;
+  --bg-card-hover: #222230;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-accent: rgba(212, 175, 90, 0.3);
+
+  --text-primary: #f0ede8;
+  --text-secondary: #9490a0;
+  --text-muted: #5a566a;
+
+  --gold: #d4af5a;
+  --gold-light: #e8c97e;
+  --gold-dim: rgba(212, 175, 90, 0.12);
+
+  --green: #4caf82;
+  --green-dim: rgba(76, 175, 130, 0.12);
+  --amber: #f0a040;
+  --amber-dim: rgba(240, 160, 64, 0.12);
+  --red: #e05555;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-gold: 0 0 24px rgba(212, 175, 90, 0.15);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #2e2e3e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+}

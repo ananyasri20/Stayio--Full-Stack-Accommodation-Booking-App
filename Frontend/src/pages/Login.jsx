@@ -1,4 +1,5 @@
 // src/pages/Login.jsx
+
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -17,15 +18,45 @@ export default function Login() {
     return errs
   }
 
-  const handleLogin = () => {
-    const errs = validate()
-    if (Object.keys(errs).length) { setErrors(errs); return }
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      navigate('/dashboard')
-    }, 900)
+  const handleLogin = async () => {
+  const errs = validate()
+  if (Object.keys(errs).length) {
+    setErrors(errs)
+    return
   }
+
+  try {
+    setLoading(true)
+
+    const res = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(form)
+    })
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      setErrors({ general: data.message || "Login failed" })
+      setLoading(false)
+      return
+    }
+
+    // ✅ STORE TOKEN + USER
+    localStorage.setItem("token", data.token)
+    localStorage.setItem("user", JSON.stringify(data.user))
+
+    // ✅ REDIRECT
+    navigate("/listings")
+
+  } catch (error) {
+    setErrors({ general: "Server error. Try again." })
+  } finally {
+    setLoading(false)
+  }
+}
 
   const field = (key) => ({
     value: form[key],
@@ -80,4 +111,5 @@ export default function Login() {
       </motion.div>
     </div>
   )
+
 }

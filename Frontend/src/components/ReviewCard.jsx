@@ -1,40 +1,37 @@
-// src/components/ReviewCard.jsx
-import React, { useState } from 'react'
-import styles from './ReviewCard.module.css'
+import styles from './ReviewCard.module.css';
 
-export default function ReviewCard({ review }) {
-  const [helpful, setHelpful] = useState(null)
+function StarRating({ rating }) {
+  return (
+    <div className={styles.stars}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <span
+          key={star}
+          className={`${styles.star} ${star <= rating ? styles.filled : styles.empty}`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
+}
 
+export default function ReviewCard({ name, hotel, rating, date, text, avatar }) {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
-        <div className={styles.avatar} style={{ background: review.color }}>
-          {review.initials}
+        <div className={styles.avatarWrap}>
+          <span className={styles.avatar}>{avatar}</span>
         </div>
         <div className={styles.meta}>
-          <div className={styles.name}>{review.name}</div>
-          <div className={styles.location}>{review.location}</div>
+          <p className={styles.name}>{name}</p>
+          <p className={styles.hotel}>{hotel}</p>
         </div>
-        <div className={styles.stars}>{'⭐'.repeat(review.rating)}</div>
+        <div className={styles.ratingBlock}>
+          <StarRating rating={rating} />
+          <p className={styles.date}>{date}</p>
+        </div>
       </div>
-
-      <p className={styles.text}>{review.text}</p>
-
-      <div className={styles.helpful}>
-        <span className={styles.helpLabel}>Was this helpful?</span>
-        <button
-          className={`${styles.helpBtn} ${helpful === 'yes' ? styles.helpActive : ''}`}
-          onClick={() => setHelpful('yes')}
-        >
-          👍 Yes
-        </button>
-        <button
-          className={`${styles.helpBtn} ${helpful === 'no' ? styles.helpActive : ''}`}
-          onClick={() => setHelpful('no')}
-        >
-          👎 No
-        </button>
-      </div>
+      <p className={styles.text}>{text}</p>
     </div>
-  )
+  );
 }

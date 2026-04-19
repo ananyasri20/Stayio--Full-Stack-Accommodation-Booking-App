@@ -1,30 +1,36 @@
-// src/components/BookingCard.jsx
 import React from 'react'
 import styles from './BookingCard.module.css'
 
-const statusClass = {
-  confirmed: styles.confirmed,
-  pending:   styles.pending,
-  completed: styles.completed,
-}
+export default function BookingCard({ listing }) {
+  if (!listing) return null;
 
-export default function BookingCard({ booking }) {
   return (
     <div className={styles.card}>
-      <div className={styles.hotelImg}>{booking.emoji}</div>
+      {/* Image / Emoji */}
+      <div className={styles.hotelImg}>
+        {listing?.emoji || "🏨"}
+      </div>
 
+      {/* Info */}
       <div className={styles.info}>
-        <div className={styles.name}>{booking.hotel}</div>
+        <div className={styles.name}>
+          {listing?.name || "Hotel"}
+        </div>
+
         <div className={styles.dates}>
-          📅 {booking.dates} &nbsp;·&nbsp; 📍 {booking.location}
+          📍 {listing?.location?.city}, {listing?.location?.country}
         </div>
       </div>
 
+      {/* Right Side */}
       <div className={styles.right}>
-        <span className={`${styles.badge} ${statusClass[booking.status]}`}>
-          {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+        <span className={`${styles.badge} ${styles.confirmed}`}>
+          Available
         </span>
-        <div className={styles.price}>{booking.price}</div>
+
+        <div className={styles.price}>
+          ₹{listing?.price || 0} / night
+        </div>
       </div>
     </div>
   )

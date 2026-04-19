@@ -1,86 +1,110 @@
-/* src/components/ReviewCard.module.css */
-
 .card {
-  background: #fff;
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  border: 1px solid rgba(139, 94, 60, 0.08);
-  margin-bottom: 1rem;
-  transition: box-shadow 0.2s;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+  transition: transform var(--transition), border-color var(--transition);
+  animation: slideIn 0.35s ease both;
 }
 
-.card:hover { box-shadow: var(--shadow-sm); }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-accent);
+}
 
 .header {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.875rem;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
 }
 
-.avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: #fff;
+.avatarWrap {
   flex-shrink: 0;
 }
 
-.meta { flex: 1; }
-
-.name {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--charcoal);
-}
-
-.location {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 0.15rem;
-}
-
-.stars { font-size: 0.9rem; }
-
-.text {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.helpful {
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1.5px solid var(--border-accent);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.875rem;
-  border-top: 1px solid rgba(139, 94, 60, 0.06);
-  padding-top: 0.875rem;
+  justify-content: center;
+  /* Use flex on the parent instead */
+  display: flex;
 }
 
-.helpLabel {
-  font-size: 0.8rem;
+.avatarWrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1.5px solid var(--border-accent);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hotel {
+  font-size: 12px;
+  color: var(--gold);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.ratingBlock {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.star {
+  font-size: 14px;
+}
+
+.filled { color: var(--gold); }
+.empty  { color: var(--text-muted); }
+
+.date {
+  font-size: 11px;
   color: var(--text-muted);
+  margin-top: 4px;
 }
 
-.helpBtn {
-  background: none;
-  border: 1.5px solid rgba(139, 94, 60, 0.2);
-  border-radius: 50px;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.helpBtn:hover,
-.helpActive {
-  border-color: var(--brown);
-  color: var(--brown);
+.text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
 }

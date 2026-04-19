@@ -1,0 +1,114 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-bottom: 8px;
+}
+
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #ece9e2;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.imgWrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .img {
+  transform: scale(1.05);
+}
+
+.heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: all 0.2s;
+}
+
+.heart:hover {
+  transform: scale(1.15);
+  color: #e05252;
+}
+
+.info {
+  padding: 16px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.rating {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.location {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.price strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -7,7 +7,8 @@ const ratings    = [{ label: 'All', value: 0 }, { label: '4+ ⭐', value: 4 }, {
 const amenityOpts = ['Free WiFi', 'Pool', 'Gym', 'Spa', 'Restaurant', 'Parking', 'Breakfast']
 
 export default function FilterPanel({ filters, onChange }) {
-  const { maxPrice, rating, location, amenities } = filters
+  // ❌ removed maxPrice
+  const { rating, location, amenities } = filters
 
   const toggleAmenity = (a) => {
     const updated = amenities.includes(a)
@@ -18,23 +19,6 @@ export default function FilterPanel({ filters, onChange }) {
 
   return (
     <aside className={styles.panel}>
-      {/* Price */}
-      <div className={styles.card}>
-        <div className={styles.title}>Price Range</div>
-        <div className={styles.priceRow}>
-          <span className={styles.priceLabel}>$50</span>
-          <span className={styles.priceLabel}>${maxPrice}</span>
-        </div>
-        <input
-          type="range"
-          className={styles.slider}
-          min={50}
-          max={500}
-          step={10}
-          value={maxPrice}
-          onChange={(e) => onChange({ ...filters, maxPrice: Number(e.target.value) })}
-        />
-      </div>
 
       {/* Rating */}
       <div className={styles.card}>
@@ -88,7 +72,7 @@ export default function FilterPanel({ filters, onChange }) {
       <button
         className={styles.resetBtn}
         onClick={() =>
-          onChange({ maxPrice: 500, rating: 0, location: 'All', amenities: [] })
+          onChange({ rating: 0, location: 'All', amenities: [] })
         }
       >
         Reset Filters

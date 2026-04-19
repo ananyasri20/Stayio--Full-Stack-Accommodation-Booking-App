@@ -1,18 +1,25 @@
 // src/pages/Landing.jsx
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
 import SearchBar from '../components/SearchBar'
 import HotelCard from '../components/HotelCard'
 import Footer from '../components/Footer'
-import { hotels, testimonials } from '../data/hotels'
 import styles from './Landing.module.css'
 
+// ❌ removed hotels import
+// import { hotels, testimonials } from '../data/hotels'
+
+// ✅ keep testimonials if you want
+import { testimonials } from '../data/hotels'
+
 const features = [
-  { icon: '✅', color: 'rgba(107,142,35,0.12)',  title: 'Verified Listings',    desc: 'Every property is verified by our team ensuring quality and accuracy before it goes live.' },
-  { icon: '💰', color: 'rgba(139,94,60,0.12)',   title: 'Transparent Pricing',  desc: 'No hidden fees, no nasty surprises. The price you see is the price you pay — always.' },
-  { icon: '🧭', color: 'rgba(59,130,246,0.12)',  title: 'Smart Discovery',      desc: 'Our intelligent engine learns your preferences and surfaces the perfect stays for you.' },
-  { icon: '🛡️', color: 'rgba(245,158,11,0.12)', title: 'Secure Booking',       desc: 'Industry-standard encryption and a 100% booking guarantee ensure your peace of mind.' },
+  { icon: '✅', color: 'rgba(107,142,35,0.12)',  title: 'Verified Listings', desc: 'Every property is verified by our team ensuring quality and accuracy before it goes live.' },
+  { icon: '💰', color: 'rgba(139,94,60,0.12)',  title: 'Transparent Pricing', desc: 'No hidden fees, no nasty surprises.' },
+  { icon: '🧭', color: 'rgba(59,130,246,0.12)', title: 'Smart Discovery', desc: 'We recommend stays based on your preferences.' },
+  { icon: '🛡️', color: 'rgba(245,158,11,0.12)', title: 'Secure Booking', desc: 'Safe and encrypted booking experience.' },
 ]
 
 const containerVariants = {
@@ -21,119 +28,128 @@ const containerVariants = {
 }
 
 const fadeUp = {
-  hidden:  { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 }
 
 export default function Landing() {
   const navigate = useNavigate()
+
+  const [hotels, setHotels] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  // ✅ FETCH FROM BACKEND
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/listings")
+      .then(res => {
+        setHotels(res.data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+      })
+  }, [])
+
+  // ✅ take first 3 as featured
   const featured = hotels.slice(0, 3)
 
   return (
     <div>
-      {/* ── Hero ────────────────────────────────────────────── */}
-      <section className={styles.hero}>
-        <div className={styles.heroBgPattern} />
-        <motion.div
-          className={styles.heroContent}
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-        >
-          <div className={styles.heroBadge}>✦ Trusted by 2M+ travelers worldwide</div>
-          <h1 className={styles.heroTitle}>
-            Find Your <em>Perfect Stay</em><br />Anywhere
-          </h1>
-          <p className={styles.heroSubtitle}>
-            Discover curated hotels, cozy retreats, and unique stays<br />
-            tailored to every journey and budget.
-          </p>
-          <SearchBar />
-        </motion.div>
-      </section>
+      {/* HERO */}
+      {/* HERO */}
+<section className={styles.hero}>
+  <div className={styles.heroOrb1} />
+  <div className={styles.heroOrb2} />
+  <div className={styles.heroOrb3} />
+  <div className={styles.heroGrid} />
 
-      {/* ── Featured Hotels ─────────────────────────────────── */}
-      <div className="section">
-        <div className="section-header">
-          <div className="section-tag">✦ Handpicked for you</div>
-          <h2>Featured Hotels</h2>
-          <p>Explore our most loved stays with glowing reviews</p>
-        </div>
-        <motion.div
-          className="grid-3"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {featured.map((h) => (
-            <motion.div key={h.id} variants={fadeUp}>
-              <HotelCard hotel={h} />
-            </motion.div>
+  <div className={styles.heroInner}>
+    {/* LEFT */}
+    <motion.div
+      className={styles.heroLeft}
+      initial="hidden"
+      animate="visible"
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.13 } } }}
+    >
+      <motion.div
+        className={styles.heroBadge}
+        variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+      >
+        <span className={styles.badgeDot} />
+        ✦ Trusted by travelers
+      </motion.div>
+
+      <motion.h1
+        className={styles.heroTitle}
+        variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
+      >
+        Find Your <br />
+        <em className={styles.heroHighlight}>Perfect Stay</em>
+        <br />Anywhere
+      </motion.h1>
+
+      <motion.p
+        className={styles.heroSubtitle}
+        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+      >
+        Discover curated hotels and unique stays for your next adventure.
+      </motion.p>
+
+      <motion.div
+        className={styles.heroSearch}
+        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
+      >
+        <SearchBar />
+      </motion.div>
+
+      
+    </motion.div>
+
+    {/* RIGHT — 3D Carousel */}
+    <motion.div
+      className={styles.heroRight}
+      initial={{ opacity: 0, scale: 0.88, rotateY: -12 }}
+      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className={styles.carouselScene}>
+        <div className={styles.carouselTrack}>
+          {[
+            'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80',
+            'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80',
+            'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80',
+            'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80',
+            'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80',
+            'https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=400&q=80',
+          ].map((src, i) => (
+            <div
+              key={i}
+              className={styles.carouselCard}
+              style={{ '--i': i }}
+            >
+              <img src={src} alt={`Luxury stay ${i + 1}`} className={styles.carouselImg} />
+              <div className={styles.carouselGlass} />
+            </div>
           ))}
-        </motion.div>
-        <div className={styles.viewAllWrap}>
-          <button className={styles.viewAllBtn} onClick={() => navigate('/listings')}>
-            View All Hotels →
-          </button>
         </div>
       </div>
+    </motion.div>
+  </div>
+</section>
 
-      {/* ── Why Stayio ──────────────────────────────────────── */}
-      <div className={styles.whySection}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 2rem' }}>
-          <div className="section-header">
-            <div className="section-tag">✦ Why us</div>
-            <h2>Why Choose Stayio?</h2>
-            <p>We make finding your next stay simple, safe, and delightful</p>
-          </div>
-          <motion.div
-            className={styles.featuresGrid}
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            {features.map((f) => (
-              <motion.div key={f.title} variants={fadeUp} className={styles.featureCard}>
-                <div className={styles.featureIcon} style={{ background: f.color }}>
-                  {f.icon}
-                </div>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-
-      {/* ── Testimonials ────────────────────────────────────── */}
+      {/* TESTIMONIALS */}
       <div className="section">
         <div className="section-header">
-          <div className="section-tag">✦ What guests say</div>
           <h2>Loved by Travelers</h2>
-          <p>Real stories from real guests around the world</p>
         </div>
-        <motion.div
-          className={styles.testimonialsGrid}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-        >
+
+        <motion.div className={styles.testimonialsGrid}>
           {testimonials.map((t) => (
-            <motion.div key={t.name} variants={fadeUp} className={styles.testimonialCard}>
-              <div className={styles.testimonialQuote}>"</div>
-              <p className={styles.testimonialText}>{t.text}</p>
-              <div className={styles.testimonialAuthor}>
-                <div className={styles.avatar} style={{ background: t.color }}>{t.initials}</div>
-                <div>
-                  <div className={styles.authorName}>{t.name}</div>
-                  <div className={styles.authorStars}>{'⭐'.repeat(t.rating)}</div>
-                </div>
-                <div className={styles.authorLoc}>{t.location}</div>
-              </div>
-            </motion.div>
+            <div key={t.name} className={styles.testimonialCard}>
+              <p>{t.text}</p>
+              <strong>{t.name}</strong>
+            </div>
           ))}
         </motion.div>
       </div>
