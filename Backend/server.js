@@ -13,14 +13,14 @@ app.use(express.json());
 const authRoutes = require("./routes/authRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
+
 const listingRoutes = require("./routes/listings");
 
 // ✅ Use routes
 app.use("/api/auth", authRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/payments", paymentRoutes);
+
 app.use("/api/listings", listingRoutes);
 
 // ✅ Root route
@@ -42,6 +42,7 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal Server Error",
   });
 });
+
 
 // ✅ MongoDB connection
 mongoose

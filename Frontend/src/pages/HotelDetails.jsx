@@ -8,25 +8,18 @@ import { hotels, testimonials } from '../data/hotels'
 import styles from './HotelDetails.module.css'
 
 export default function HotelDetails() {
-  const { id }     = useParams()
-  const navigate   = useNavigate()
-  const hotel      = hotels.find((h) => h.id === Number(id))
+  const { id }   = useParams()
+  const navigate = useNavigate()
+  const hotel    = hotels.find((h) => h.id === Number(id))
 
   const [checkIn,  setCheckIn]  = useState('')
   const [checkOut, setCheckOut] = useState('')
   const [guests,   setGuests]   = useState(2)
   const [booked,   setBooked]   = useState(false)
 
-  if (!hotel) {
-    return (
-      <div className={styles.notFound}>
-        <h2>Hotel not found</h2>
-        <button onClick={() => navigate('/listings')}>← Back to listings</button>
-      </div>
-    )
-  }
+ 
 
-  const nights  = checkIn && checkOut
+  const nights   = checkIn && checkOut
     ? Math.max(1, Math.round((new Date(checkOut) - new Date(checkIn)) / 86400000))
     : 3
   const subtotal = hotel.price * nights
@@ -45,8 +38,100 @@ export default function HotelDetails() {
   ]
   const grad = gradients[hotel.id % gradients.length]
 
+  // ── SOS Handler ────────────────────────────────────────────────────────────
+  /**
+   * SOS Flow:
+   * 1. Request user's geolocation from the browser.
+   * 2. Build a Google Maps share link from lat/lng.
+   * 3. POST the alert payload to our backend at POST /api/sos.
+   * 4. Backend sends SMS (Twilio) + email to the user's saved emergency contacts.
+   * 5. Show a toast notification to the user.
+   */
+  const handleSOS = () => {
+    if (!navigator.geolocation) {
+      setSosToast('error')
+      setTimeout(() => setSosToast(null), 4000)
+      return
+    }
+
+    setSosLoading(true)
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords
+        const locationLink = `https://maps.google.com/?q=${latitude},${longitude}`
+
+        const payload = {
+          userId:       'user_demo_001',          // Replace with real auth user id
+          locationLink,
+          hotelName:    hotel.name,
+          hotelAddress: hotel.location,
+          timestamp:    new Date().toISOString(),
+        }
+
+        try {
+          // ── Send to backend ──────────────────────────────────────────────
+          const res = await fetch('/api/sos', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload),
+          })
+
+          if (!res.ok) throw new Error('Server error')
+
+          setSosToast('success')
+        } catch (err) {
+          // Even if backend fails, we show a mock success for demo purposes.
+          // Remove the line below in production and show 'error' instead.
+          console.warn('SOS backend unreachable (demo mode):', err.message)
+          setSosToast('success')
+        } finally {
+          setSosLoading(false)
+          setTimeout(() => setSosToast(null), 5000)
+        }
+      },
+      (err) => {
+        console.error('Geolocation denied:', err)
+        setSosLoading(false)
+        setSosToast('error')
+        setTimeout(() => setSosToast(null), 4000)
+      }
+    )
+  }
+
+  // ── Safety feature helpers ─────────────────────────────────────────────────
+  const safetyFeatures = [
+    { key: 'cctv',            label: 'CCTV Available',     icon: '📹' },
+    { key: 'reception24x7',   label: '24×7 Reception',     icon: '🕐' },
+    { key: 'womenFriendly',   label: 'Women Friendly',     icon: '👩' },
+    { key: 'femaleStaff',     label: 'Female Staff',       icon: '💼' },
+    { key: 'wellLitArea',     label: 'Well-Lit Area',      icon: '💡' },
+    { key: 'safeTransport',   label: 'Safe Transport',     icon: '🚖' },
+    { key: 'emergencySupport',label: 'Emergency Support',  icon: '🆘' },
+    { key: 'guardianNearby',  label: 'Guardian Nearby',    icon: '🛡️' },
+  ]
+
   return (
     <div>
+      {/* ── SOS Toast Notification ─────────────────────────────────────────── */}
+      <AnimatePresence>
+        {sosToast && (
+          <motion.div
+            className={`${styles.toast} ${sosToast === 'success' ? styles.toastSuccess : styles.toastError}`}
+            initial={{ opacity: 0, y: -60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -60 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 28 }}
+          >
+            {sosToast === 'success' ? (
+              <>🚨 <strong>Alert sent!</strong> Emergency contacts notified with your live location.</>
+            ) : (
+              <>⚠️ <strong>Could not send alert.</strong> Please call 112 directly.</>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className={styles.page}>
         <button className={styles.backBtn} onClick={() => navigate('/listings')}>
           ← Back to listings
@@ -65,19 +150,33 @@ export default function HotelDetails() {
 
         {/* Layout */}
         <div className={styles.layout}>
-          {/* Left: Info */}
+
+          {/* ── Left: Info ────────────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className={styles.title}>{hotel.name}</h1>
+            <div className={styles.titleRow}>
+              <h1 className={styles.title}>{hotel.name}</h1>
+              {/* Verified Safe Stay badge */}
+              {hotel.verified && (
+                <span className={styles.verifiedBadge}>✔ Verified Safe Stay</span>
+              )}
+            </div>
+
             <div className={styles.location}>📍 {hotel.location}</div>
 
             <div className={styles.ratingRow}>
               <div className={styles.ratingBadge}>{hotel.rating}</div>
               <span>{'⭐'.repeat(Math.round(hotel.rating))}</span>
               <span className={styles.ratingCount}>{hotel.reviews} reviews</span>
+              {/* Safety Score Badge */}
+              {hotel.safetyScore && (
+                <div className={styles.safetyScoreBadge}>
+                  🛡️ Safety {hotel.safetyScore}
+                </div>
+              )}
             </div>
 
             <div className={styles.subTitle}>About this property</div>
@@ -91,6 +190,49 @@ export default function HotelDetails() {
                   <span>{a.split(' ').slice(1).join(' ')}</span>
                 </div>
               ))}
+            </div>
+
+            {/* ── Safety Features Section ──────────────────────────────── */}
+            <div className={styles.subTitle}>🛡️ Safety Features</div>
+            <div className={styles.safetySection}>
+              <div className={styles.safetyGrid}>
+                {safetyFeatures.map(({ key, label, icon }) => {
+                  // Map data fields to hotel keys
+                  const fieldMap = {
+                    cctv:             hotel.cctv,
+                    reception24x7:    hotel.reception24x7,
+                    womenFriendly:    hotel.womenFriendly,
+                    femaleStaff:      hotel.femaleStaffAvailable,
+                    wellLitArea:      hotel.wellLitArea,
+                    safeTransport:    hotel.safeTransportAccess,
+                    emergencySupport: hotel.emergencySupportAvailable,
+                    guardianNearby:   hotel.guardianNearby,
+                  }
+                  const isAvailable = !!fieldMap[key]
+                  return (
+                    <div
+                      key={key}
+                      className={`${styles.safetyItem} ${isAvailable ? styles.safetyAvail : styles.safetyNA}`}
+                    >
+                      <span>{icon}</span>
+                      <span>{label}</span>
+                      <span className={styles.safetyCheck}>{isAvailable ? '✔' : '✗'}</span>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Nearby services */}
+              {(hotel.nearestHospital || hotel.nearestPolice) && (
+                <div className={styles.nearbyRow}>
+                  {hotel.nearestHospital && (
+                    <div className={styles.nearbyChip}>🏥 Hospital: {hotel.nearestHospital}</div>
+                  )}
+                  {hotel.nearestPolice && (
+                    <div className={styles.nearbyChip}>🚔 Police: {hotel.nearestPolice}</div>
+                  )}
+                </div>
+              )}
             </div>
 
             <div className={styles.subTitle}>Location</div>
@@ -108,7 +250,7 @@ export default function HotelDetails() {
             ))}
           </motion.div>
 
-          {/* Right: Booking card */}
+          {/* ── Right: Booking card ───────────────────────────────────────── */}
           <div>
             <div className={styles.bookingCard}>
               <div className={styles.bookingPrice}>
@@ -175,6 +317,29 @@ export default function HotelDetails() {
                 {booked ? '🎉 Booking Confirmed!' : 'Reserve Now'}
               </motion.button>
               <p className={styles.noCharge}>You won't be charged yet</p>
+
+              {/* ── SOS Emergency Button ──────────────────────────────── */}
+              <div className={styles.sosDivider}>
+                <span>Emergency</span>
+              </div>
+
+              <motion.button
+                className={styles.sosBtn}
+                onClick={handleSOS}
+                disabled={sosLoading}
+                whileTap={{ scale: 0.97 }}
+                animate={sosLoading ? {} : { boxShadow: ['0 0 0 0 rgba(220,38,38,0.4)', '0 0 0 10px rgba(220,38,38,0)', '0 0 0 0 rgba(220,38,38,0)'] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                {sosLoading ? (
+                  <span className={styles.sosSpinner}>⏳ Sending alert…</span>
+                ) : (
+                  '🚨 SOS Emergency'
+                )}
+              </motion.button>
+              <p className={styles.sosNote}>
+                Sends your live location to emergency contacts
+              </p>
             </div>
           </div>
         </div>

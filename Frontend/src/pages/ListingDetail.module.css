@@ -145,3 +145,194 @@
     font-size: 1.8rem;
   }
 }
+   /* ─────────────────────────────────────────────────────────────────────────────
+   ADD THESE RULES TO THE BOTTOM OF ListingDetail.module.css
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Header title row — flex so badge sits next to title */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* "✔ Verified Safe Stay" green pill */
+.verifiedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  color: #065f46;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #6ee7b7;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+/* "🛡️ Safety 4.8" blue pill in meta row */
+.safetyScoreBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #1e40af;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid #93c5fd;
+}
+
+/* ── Safety section card ───────────────────────────────────────────────────── */
+.safetySection {
+  background: linear-gradient(135deg, #fefce8 0%, #f0fdf4 100%);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+/* 2-column grid of feature pills */
+.safetyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+.safetyItem {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* Available — green tint */
+.safetyAvail {
+  background: rgba(16, 185, 129, 0.1);
+  color: #065f46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+/* Not available — muted */
+.safetyNA {
+  background: rgba(0, 0, 0, 0.04);
+  color: #9ca3af;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.safetyIcon { font-size: 1rem; flex-shrink: 0; }
+.safetyLabel { flex: 1; }
+.safetyCheck { margin-left: auto; font-weight: 700; font-size: 0.85rem; }
+
+/* Hospital / Police distance chips */
+.nearbyRow {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.nearbyChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* "X of 8 safety features available" summary */
+.safetySummary {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .safetyGrid { grid-template-columns: 1fr; }
+  .titleRow   { flex-direction: column; align-items: flex-start; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   APPEND THESE RULES TO THE BOTTOM OF ListingDetail.module.css
+   They style the "📞 Start Fake Video Call" CTA button inside the
+   safetySection card.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Divider between safety grid and the fake-call CTA */
+.safetyDivider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+  margin: 1rem 0 0.9rem;
+}
+
+/* Fake video call launch button */
+.fakeCallCTA {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+
+  padding: 0.75rem 1.25rem;
+
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #e2e8f0;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+  transition: all 0.22s ease;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.fakeCallCTA:hover {
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.fakeCallCTA:active {
+  transform: scale(0.98);
+}
+
+.fakeCallCTAIcon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.fakeCallCTABadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-left: 0.25rem;
+}

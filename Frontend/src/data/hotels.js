@@ -118,53 +118,17 @@ export const hotels = [
 
 export const testimonials = [
   {
-    name: 'Sarah Chen',
-    location: 'New York',
-    text: 'Stayio made our honeymoon unforgettable! The Maldives villa was beyond anything we imagined. The booking process was seamless from start to finish.',
-    rating: 5,
-    initials: 'SC',
-    color: '#8B5E3C',
+    name: "Ananya, Delhi",
+    text: "I felt safer traveling solo knowing Stayio guardians were nearby."
   },
   {
-    name: 'Marco Visconti',
-    location: 'Milan',
-    text: 'Found the most authentic ryokan in Kyoto through Stayio. No other platform had this level of curated cultural stays. Absolutely remarkable.',
-    rating: 5,
-    initials: 'MV',
-    color: '#6B8E23',
+    name: "Riya, Mumbai",
+    text: "The SOS feature gave me peace of mind during late-night travel."
   },
   {
-    name: 'Priya Sharma',
-    location: 'Mumbai',
-    text: 'As a solo female traveler, I trust Stayio completely. Verified listings and transparent reviews give me the confidence to explore anywhere.',
-    rating: 5,
-    initials: 'PS',
-    color: '#5C3520',
-  },
-  {
-    name: "James O'Brien",
-    location: 'Dublin',
-    text: "The Aurora Glacier Inn was a once-in-a-lifetime experience. Stayio's recommendation engine nailed exactly what I was looking for.",
-    rating: 5,
-    initials: 'JO',
-    color: '#4F6B18',
-  },
-  {
-    name: 'Aiko Tanaka',
-    location: 'Tokyo',
-    text: 'Le Petit Château in Paris exceeded all expectations. The photos were honest and the reality was even more beautiful!',
-    rating: 5,
-    initials: 'AT',
-    color: '#8B7355',
-  },
-  {
-    name: 'Carlos Rivera',
-    location: 'Buenos Aires',
-    text: 'Transparent pricing saved me from hidden fee surprises. What you see is what you pay — I trust no other platform now.',
-    rating: 5,
-    initials: 'CR',
-    color: '#6B4423',
-  },
+    name: "Sara, Bangalore",
+    text: "Safe maps helped me quickly find hospitals and trusted cafés."
+  }
 ]
 
 export const bookings = [

@@ -15,11 +15,33 @@ import styles from './Landing.module.css'
 // ✅ keep testimonials if you want
 import { testimonials } from '../data/hotels'
 
+// Replace ONLY the text/content in your Landing.jsx hero + features + testimonials headings
+
 const features = [
-  { icon: '✅', color: 'rgba(107,142,35,0.12)',  title: 'Verified Listings', desc: 'Every property is verified by our team ensuring quality and accuracy before it goes live.' },
-  { icon: '💰', color: 'rgba(139,94,60,0.12)',  title: 'Transparent Pricing', desc: 'No hidden fees, no nasty surprises.' },
-  { icon: '🧭', color: 'rgba(59,130,246,0.12)', title: 'Smart Discovery', desc: 'We recommend stays based on your preferences.' },
-  { icon: '🛡️', color: 'rgba(245,158,11,0.12)', title: 'Secure Booking', desc: 'Safe and encrypted booking experience.' },
+  {
+    icon: '🛡️',
+    color: 'rgba(107,142,35,0.12)',
+    title: 'Verified Guardians',
+    desc: 'Connect instantly with trusted and background-checked local helpers when exploring unfamiliar cities.',
+  },
+  {
+    icon: '🚨',
+    color: 'rgba(139,94,60,0.12)',
+    title: 'Emergency SOS',
+    desc: 'One tap sends alerts with your live location to nearby guardians and emergency contacts.',
+  },
+  {
+    icon: '🗺️',
+    color: 'rgba(59,130,246,0.12)',
+    title: 'Safe City Map',
+    desc: 'Discover nearby hospitals, police stations, pharmacies, safe cafés, and secure zones.',
+  },
+  {
+    icon: '👩‍💼',
+    color: 'rgba(245,158,11,0.12)',
+    title: 'Women First Safety',
+    desc: 'Designed especially for solo women travelers who value safety, trust, and confidence.',
+  },
 ]
 
 const containerVariants = {
@@ -77,23 +99,24 @@ export default function Landing() {
         variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
       >
         <span className={styles.badgeDot} />
-        ✦ Trusted by travelers
+        ✦ Trusted by solo travelers
       </motion.div>
 
       <motion.h1
         className={styles.heroTitle}
         variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
       >
-        Find Your <br />
-        <em className={styles.heroHighlight}>Perfect Stay</em>
-        <br />Anywhere
+        Travel Safe <br />
+        <em className={styles.heroHighlight}>Anywhere</em>
+        <br />With Stayio
       </motion.h1>
 
       <motion.p
         className={styles.heroSubtitle}
         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}
       >
-        Discover curated hotels and unique stays for your next adventure.
+          Verified local guardians, instant SOS help, and safe city guidance
+  for women travelers and backpackers exploring unfamiliar places.
       </motion.p>
 
       <motion.div
@@ -116,13 +139,13 @@ export default function Landing() {
       <div className={styles.carouselScene}>
         <div className={styles.carouselTrack}>
           {[
-            'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80',
-            'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80',
-            'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80',
-            'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80',
-            'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80',
-            'https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=400&q=80',
-          ].map((src, i) => (
+'https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=400&q=80',
+'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=80',
+'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
+'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&q=80',
+'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80',
+'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80'
+].map((src, i) => (
             <div
               key={i}
               className={styles.carouselCard}
@@ -141,7 +164,7 @@ export default function Landing() {
       {/* TESTIMONIALS */}
       <div className="section">
         <div className="section-header">
-          <h2>Loved by Travelers</h2>
+          <h2>Loved by Women Travelers</h2>
         </div>
 
         <motion.div className={styles.testimonialsGrid}>

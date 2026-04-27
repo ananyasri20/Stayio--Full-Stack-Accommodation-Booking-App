@@ -104,7 +104,7 @@ export default function Signup() {
           <div className={styles.roleGrid}>
             {[
               { value: 'traveler', icon: '🧳', label: 'Traveler' },
-              { value: 'owner', icon: '🏨', label: 'Hotel Owner' },
+              { value: 'owner', icon: '🏨', label: 'Guardian' },
             ].map((r) => (
               <div
                 key={r.value}
